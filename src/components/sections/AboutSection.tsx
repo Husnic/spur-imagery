@@ -38,7 +38,7 @@ export default function AboutSection() {
             <div className="flex flex-col gap-6 flex-1">
               {/* Second image top-right — desktop only */}
               <div className="hidden md:block self-end w-[55%]">
-                <div className="relative aspect-4/3 overflow-hidden border-4 border-[#502A2A]">
+                <div className="relative aspect-[3/4] overflow-hidden border-4 border-[#502A2A]">
                   <Image
                     src="/images/about-couple.png"
                     alt="Couple portrait by Spur Imagery"
@@ -69,7 +69,7 @@ export default function AboutSection() {
 
               {/* Second image mobile — below text */}
               <div className="block md:hidden mt-4">
-                <div className="relative w-full aspect-[4/3] overflow-hidden border-4 border-[#502A2A]">
+                <div className="relative w-full aspect-[3/4] overflow-hidden border-4 border-[#502A2A]">
                   <Image
                     src="/images/about-couple.png"
                     alt="Couple portrait by Spur Imagery"

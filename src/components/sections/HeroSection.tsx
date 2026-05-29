@@ -12,7 +12,7 @@ export default function HeroSection() {
         style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
       />
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/55" />
+      <div className="absolute inset-0 bg-black/80" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20">
