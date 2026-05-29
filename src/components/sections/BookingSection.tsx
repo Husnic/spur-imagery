@@ -11,28 +11,43 @@ const services = [
   "Pre-wedding & Wedding Coverage",
 ];
 
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function BookingSection() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
     service: "",
+    message: "",
   });
+  const [status, setStatus] = useState<Status>("idle");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire to backend
-    alert("Booking request sent! We'll be in touch.");
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setStatus("success");
+      setForm({ firstName: "", lastName: "", email: "", service: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputBase =
-    "w-full bg-transparent border-b border-[#171717]/30 focus:border-[#D35400] outline-none font-clash text-sm text-[#171717] py-3 placeholder:text-[#171717]/40 transition-colors duration-200";
+    "w-full bg-white border border-[#171717]/20 focus:border-[#D35400] outline-none font-clash text-sm text-black py-3 px-4 placeholder:text-black/40 transition-colors duration-200 rounded-none";
 
   return (
     <section id="contact" className="py-20 md:py-28 bg-[#FAF6F0] px-6 md:px-10 lg:px-16">
@@ -58,8 +73,8 @@ export default function BookingSection() {
           </div>
 
           {/* Right: form */}
-          <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-8 w-full">
-            <div className="flex flex-col sm:flex-row gap-8">
+          <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-6 w-full">
+            <div className="flex flex-col sm:flex-row gap-6">
               <div className="flex-1">
                 <label className="font-clash text-sm text-[#171717] mb-2 block">First name</label>
                 <input
@@ -114,18 +129,43 @@ export default function BookingSection() {
                     <option key={s} value={s}>{s}</option>
                   ))}
                 </select>
-                <span className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[#171717]/60">
-                  ↓
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-black/50 text-xs">
+                  ▼
                 </span>
               </div>
             </div>
 
+            <div>
+              <label className="font-clash text-sm text-[#171717] mb-2 block">Message</label>
+              <textarea
+                name="message"
+                placeholder="Tell us about your session, date, location, or any details..."
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                className={`${inputBase} resize-none`}
+              />
+            </div>
+
+            {status === "success" && (
+              <p className="font-clash text-sm text-green-700 bg-green-50 border border-green-200 px-4 py-3">
+                Booking request sent! We&apos;ll be in touch shortly.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="font-clash text-sm text-red-700 bg-red-50 border border-red-200 px-4 py-3">
+                Something went wrong. Please try again or email us directly.
+              </p>
+            )}
+
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-[#D35400] hover:bg-[#502A2A] text-white font-clash text-base px-8 py-3 rounded-sm transition-colors duration-200"
+                disabled={status === "loading"}
+                className="bg-[#D35400] hover:bg-[#502A2A] disabled:opacity-60 disabled:cursor-not-allowed text-white font-clash text-base px-8 py-3 rounded-sm transition-colors duration-200"
               >
-                Book now
+                {status === "loading" ? "Sending…" : "Book now"}
               </button>
             </div>
           </form>

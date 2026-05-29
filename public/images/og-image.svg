@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#130b0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1f0e0e;stop-opacity:1" />
+    </linearGradient>
+    <!-- Orange glow -->
+    <radialGradient id="glow" cx="72%" cy="40%" r="45%">
+      <stop offset="0%" style="stop-color:#D35400;stop-opacity:0.18" />
+      <stop offset="100%" style="stop-color:#D35400;stop-opacity:0" />
+    </radialGradient>
+    <!-- Clip for image area -->
+    <clipPath id="photoClip">
+      <rect x="756" y="60" width="384" height="510" rx="2"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <!-- Ambient glow -->
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Left accent bar -->
+  <rect x="60" y="60" width="5" height="510" fill="#D35400" rx="2"/>
+
+  <!-- Photo placeholder block (right side) -->
+  <rect x="756" y="60" width="384" height="510" fill="#502A2A" rx="2"/>
+  <!-- Photo overlay gradient -->
+  <rect x="756" y="60" width="384" height="510" fill="url(#photoFade)" rx="2"/>
+  <defs>
+    <linearGradient id="photoFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#130b0b;stop-opacity:0.7"/>
+      <stop offset="60%" style="stop-color:#130b0b;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <!-- Photo placeholder lens icon -->
+  <circle cx="948" cy="315" r="120" fill="none" stroke="#D35400" stroke-width="1.5" opacity="0.25"/>
+  <circle cx="948" cy="315" r="80" fill="none" stroke="#D35400" stroke-width="1" opacity="0.2"/>
+  <circle cx="948" cy="315" r="40" fill="#D35400" opacity="0.12"/>
+  <!-- Lens lines -->
+  <line x1="948" y1="195" x2="948" y2="170" stroke="#D35400" stroke-width="1.5" opacity="0.3"/>
+  <line x1="948" y1="435" x2="948" y2="460" stroke="#D35400" stroke-width="1.5" opacity="0.3"/>
+  <line x1="828" y1="315" x2="803" y2="315" stroke="#D35400" stroke-width="1.5" opacity="0.3"/>
+  <line x1="1068" y1="315" x2="1093" y2="315" stroke="#D35400" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Fine horizontal rule -->
+  <line x1="85" y1="130" x2="680" y2="130" stroke="#D35400" stroke-width="0.75" opacity="0.35"/>
+
+  <!-- SPUR IMAGERY label small -->
+  <text x="85" y="110" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="13" font-weight="700" letter-spacing="6" fill="#D35400" opacity="0.9">SPUR IMAGERY</text>
+
+  <!-- Main headline -->
+  <text x="85" y="260" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="82" font-weight="900" fill="#FFFFFF" opacity="0.97">Creating</text>
+  <text x="85" y="355" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="82" font-weight="900" fill="#FFFFFF" opacity="0.97">Memories</text>
+  <text x="85" y="450" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-size="82" font-weight="900" fill="#D35400">Through Lens.</text>
+
+  <!-- Tagline -->
+  <text x="85" y="500" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="400" fill="#FFFFFF" opacity="0.55">Elegant photography — Lagos, Nigeria</text>
+
+  <!-- Bottom rule -->
+  <line x1="60" y1="570" x2="1140" y2="570" stroke="#502A2A" stroke-width="1" opacity="0.6"/>
+
+  <!-- Bottom URL -->
+  <text x="85" y="598" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#D35400" opacity="0.7" letter-spacing="1">spurimagery.com</text>
+
+  <!-- Bottom right: location pill -->
+  <rect x="980" y="576" width="160" height="32" rx="2" fill="#502A2A" opacity="0.8"/>
+  <text x="1060" y="597" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#FFFFFF" opacity="0.8" text-anchor="middle" letter-spacing="0.5">Lagos · Nigeria</text>
+</svg>
