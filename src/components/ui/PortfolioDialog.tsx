@@ -38,7 +38,7 @@ export default function PortfolioDialog({
       if (e.key === "ArrowLeft") onPrev();
       if (e.key === "ArrowRight") onNext();
     },
-    [onClose, onPrev, onNext]
+    [onClose, onPrev, onNext],
   );
 
   useEffect(() => {
@@ -51,80 +51,107 @@ export default function PortfolioDialog({
   }, [handleKey]);
 
   return (
+    /* Backdrop — click outside closes */
     <div
-      className="fixed inset-0 z-[200] flex flex-col"
-      style={{ background: "rgba(0,0,0,0.92)" }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12"
+      style={{ background: "rgba(0,0,0,0.82)" }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 bg-[#502A2A] flex-shrink-0">
-        <span className="font-clash text-white text-lg font-normal">Portfolio Viewer</span>
-        <button
-          onClick={onClose}
-          className="text-white text-2xl leading-none hover:text-[#D35400] transition-colors"
-          aria-label="Close"
-        >
-          ×
-        </button>
-      </div>
-
-      {/* Body */}
-      <div className="flex-1 flex items-center justify-center relative overflow-hidden px-16 py-6">
-        {/* Prev */}
-        <button
-          onClick={onPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#502A2A] hover:bg-[#D35400] text-white flex items-center justify-center transition-colors duration-200 z-10"
-          aria-label="Previous"
-        >
-          ←
-        </button>
-
-        {/* Media */}
-        <div className="relative max-h-full max-w-2xl w-full flex items-center justify-center">
-          {isVideo ? (
-            <video
-              key={current.src}
-              src={current.src}
-              controls
-              autoPlay
-              className="max-h-[70vh] max-w-full object-contain"
-            />
-          ) : (
-            <div className="relative w-full" style={{ maxHeight: "70vh" }}>
-              <Image
-                key={current.src}
-                src={current.src}
-                alt={current.alt}
-                width={800}
-                height={1000}
-                className="object-contain max-h-[70vh] w-auto mx-auto"
-                style={{ maxHeight: "70vh" }}
-              />
-              <span className="absolute bottom-3 left-0 right-0 text-center font-clash text-white/80 text-xs tracking-widest">
-                SPUR IMAGERY
-              </span>
-            </div>
-          )}
+      {/* Modal box — clear margins, defined border */}
+      <div
+        className="relative w-full h-full max-w-4xl flex flex-col border border-white/25 overflow-hidden"
+        style={{ maxHeight: "70vh", background: "#130b0b" }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 bg-[#502A2A] flex-shrink-0">
+          <span className="font-clash text-white text-base font-normal">
+            Portfolio Viewer
+          </span>
+          <button
+            onClick={onClose}
+            className="text-white text-2xl leading-none hover:text-[#D35400] transition-colors w-8 h-8 flex items-center justify-center"
+            aria-label="Close"
+          >
+            ×
+          </button>
         </div>
 
-        {/* Next */}
-        <button
-          onClick={onNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#D35400] hover:bg-[#502A2A] text-white flex items-center justify-center transition-colors duration-200 z-10"
-          aria-label="Next"
+        {/* Body: dark area — arrows flank centered media */}
+        <div
+          className="flex-1 flex items-center min-h-0 overflow-hidden"
+          style={{ background: "#0d0606" }}
         >
-          →
-        </button>
-      </div>
+          {/* Prev arrow */}
+          <div className="flex-shrink-0 flex items-center justify-center w-16 md:w-24 h-full">
+            <button
+              onClick={onPrev}
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#502A2A]/80 hover:bg-[#D35400] text-white flex items-center justify-center transition-colors duration-200"
+              aria-label="Previous"
+            >
+              ←
+            </button>
+          </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-between px-6 py-4 flex-shrink-0">
-        <span className="bg-[#D35400] text-white font-clash text-sm px-4 py-2 rounded-sm">
-          {category}
-        </span>
-        <span className="text-white/60 font-clash text-sm">
-          {currentIndex + 1}/{items.length}
-        </span>
+          {/* Media */}
+          <div className="flex-1 flex flex-col items-center justify-center py-6 gap-3 min-w-0 h-full min-h-0">
+            {isVideo ? (
+              <video
+                key={current.src}
+                src={current.src}
+                controls
+                autoPlay
+                className="max-w-full h-full object-contain"
+                // style={{ maxHeight: "62vh" }}
+              />
+            ) : (
+              <div
+                className="relative flex items-center justify-center w-full"
+                // style={{ maxHeight: "62vh" }}
+              >
+                <Image
+                  key={current.src}
+                  src={current.src}
+                  alt={current.alt}
+                  width={700}
+                  height={900}
+                  className="object-contain w-full max-w-[330px] h-auto"
+                  style={
+                    {
+                      // maxHeight: "62vh",
+                      // maxWidth: "100%",
+                    }
+                  }
+                />
+                <span className="absolute bottom-2 left-0 right-0 text-center font-clash text-white/70 text-xs tracking-widest">
+                  SPUR IMAGERY
+                </span>
+              </div>
+            )}
+
+            {/* Counter */}
+            <span className="font-clash text-white/50 text-sm flex-shrink-0">
+              {currentIndex + 1}/{items.length}
+            </span>
+          </div>
+
+          {/* Next arrow */}
+          <div className="flex-shrink-0 flex items-center justify-center w-16 md:w-24 h-full">
+            <button
+              onClick={onNext}
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#D35400] hover:bg-[#502A2A] text-white flex items-center justify-center transition-colors duration-200"
+              aria-label="Next"
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        {/* Footer: category pill */}
+        <div className="flex items-center px-6 py-3 bg-[#1a0e0e] flex-shrink-0">
+          <span className="bg-[#D35400] text-white font-clash text-sm px-4 py-1.5 rounded-sm">
+            {category}
+          </span>
+        </div>
       </div>
     </div>
   );
